@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Doctor;
 use Illuminate\Support\Facades\DB;
 
 class DoctorController extends Controller
@@ -33,7 +34,7 @@ class DoctorController extends Controller
             'doctor_specialist' => 'required',
             'doctor_phone' => 'required',
             'doctor_email' => 'required|Email',
-            'photo' => 'required',
+            // 'photo' => 'required',
             'address' => 'required',
             'sip' => 'required',
         ]);
@@ -43,12 +44,12 @@ class DoctorController extends Controller
             'doctor_specialist' => $request->doctor_specialist,
             'doctor_phone' => $request->doctor_phone,
             'doctor_email' => $request->doctor_email,
-            'photo' => $request->photo,
+            // 'photo' => $request->photo,
             'address' => $request->address,
             'sip' => $request->sip,
-
-            // return redirect()->route('doctors.index')->with('success', 'Doctor created successfully.');
         ]);
+
+        return redirect()->route('doctors.index')->with('success', 'Doctor created successfully.');
     }
 
     //show
@@ -86,9 +87,9 @@ class DoctorController extends Controller
             // 'photo' => $request->photo,
             'address' => $request->address,
             'sip' => $request->sip,
-
-            // return redirect()->route('doctors.index')->with('success', 'Doctor created successfully.');
         ]);
+
+        return redirect()->route('doctors.index')->with('success', 'Doctor created successfully.');
     }
 
     //destroy
