@@ -32,6 +32,13 @@
                     </li>
 
                 </ul>
+                <ul class="dropdown-menu">
+                    <li class=''>
+                        <a class="nav-link"
+                            href="{{ route('doctor-schedules.index') }}">Doctor Schedules</a>
+                    </li>
+
+                </ul>
             </li>
 
     </aside>
