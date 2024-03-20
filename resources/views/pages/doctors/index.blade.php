@@ -68,11 +68,10 @@
                                             <tr>
                                                 <td>
                                                     @if ($doctor->photo)
-                                                        <img src="{{ asset(''.$doctor->photo) }}" alt=""
+                                                        <img src="{{ asset(''. $doctor->photo) }}" alt=""
                                                             width="100px" class="img-thumbnail">
-                                                            @else
+                                                    @else
                                                             <span class="badge badge-danger">No Image</span>
-
                                                     @endif
 
                                                 </td>
