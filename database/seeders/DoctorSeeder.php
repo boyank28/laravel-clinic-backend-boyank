@@ -12,7 +12,7 @@ class DoctorSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        //auto generate 30 doctor
         \App\Models\Doctor::factory(30)->create();
     }
 }

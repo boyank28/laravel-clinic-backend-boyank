@@ -115,16 +115,41 @@ class DoctorController extends Controller
             'nik' => 'required',
         ]);
 
-        DB::table('doctors')->where('id', $id)->update([
-            'doctor_name' => $request->doctor_name,
-            'doctor_specialist' => $request->doctor_specialist,
-            'doctor_phone' => $request->doctor_phone,
-            'doctor_email' => $request->doctor_email,
-            'address' => $request->address,
-            'sip' => $request->sip,
-            'id_ihs' => $request->id_ihs,
-            'nik' => $request->nik,
-        ]);
+        // DB::table('doctors')->where('id', $id)->update([
+        //     'doctor_name' => $request->doctor_name,
+        //     'doctor_specialist' => $request->doctor_specialist,
+        //     'doctor_phone' => $request->doctor_phone,
+        //     'doctor_email' => $request->doctor_email,
+        //     'address' => $request->address,
+        //     'sip' => $request->sip,
+        //     'id_ihs' => $request->id_ihs,
+        //     'nik' => $request->nik,
+        // ]);
+
+        $doctor = Doctor::find($id);
+        $doctor->doctor_name = $request->doctor_name;
+        $doctor->doctor_specialist = $request->doctor_specialist;
+        $doctor->doctor_phone = $request->doctor_phone;
+        $doctor->doctor_email = $request->doctor_email;
+        $doctor->address = $request->address;
+        $doctor->sip = $request->sip;
+        $doctor->id_ihs = $request->id_ihs;
+        $doctor->nik = $request->nik;
+        $doctor->save();
+
+        if ($request->hasFile('photo')) {
+            $image = $request->file('photo');
+            $image->storeAs('public/doctors', $doctor->id . '.' . $image->getClientOriginalExtension());
+            $doctor->photo = 'storage/doctors/' . $doctor->id . '.' . $image->getClientOriginalExtension();
+
+            //delete old image
+            Storage::delete('public/doctors', $doctor->id . '.' . $image->getClientOriginalExtension());
+
+            //update data image
+            $doctor->update([
+                'photo' => $image->hasName(),
+            ]);
+        }
 
         return redirect()->route('doctors.index')->with('success', 'Doctor created successfully.');
     }
